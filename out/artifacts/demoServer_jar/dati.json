@@ -1,0 +1,29 @@
+[
+  {"id":1,
+  "mittente":"carol@example.com",
+  "destinatario":"giacomo.codagnone@gmail.com",
+  "oggetto":"Riunione",
+  "testoMail":"Ciao Dave, ti scrivo per informarti riguardo alla riunione di domani mattina alle 10:00.",
+  "data":"2024-04-29T15:30:45.123456789",
+  "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
+  "stato":""
+ },
+{ "id": 2,
+  "mittente":"giacomo.codagnone@gmail.com",
+  "destinatario":"giacomo.codagnone@gmail.com",
+  "oggetto":"Invito",
+  "testoMail":"Ciao ti scrivo per invitarti al mio compleanno",
+  "data":"2024-04-29T15:30:45.123456789",
+  "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
+  "stato":""
+  },
+  {"id":3,
+    "mittente":"carol@example.com",
+    "destinatario":"frank@example.com",
+    "oggetto":"Riunione",
+    "testoMail":"Ciao Dave, ti scrivo per informarti riguardo alla riunione di domani mattina alle 10:00.",
+    "data":"2024-04-29T15:30:45.123456789",
+    "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
+    "stato":""
+  }
+]
