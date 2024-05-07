@@ -24,6 +24,8 @@ public class Mail {
         this.stato.set(stato);
     }
 
+    public String ciao;
+
     public IntegerProperty idProperty() {return id;}
     public StringProperty mittenteProperty() {
         return mittente;
