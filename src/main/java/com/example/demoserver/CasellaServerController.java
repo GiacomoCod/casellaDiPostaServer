@@ -3,6 +3,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class CasellaServerController {
@@ -21,18 +24,27 @@ public class CasellaServerController {
         }
     }
 
-    public void initModel(DataModel model) throws IOException {
+    public void initModel(DataModel model, Stage stage) throws IOException {
         if (this.model != null) {
             throw new IllegalStateException("Model can only be initialized once");
         }
         this.model = model ;
 
-        model.loadData();
         model.configurazioneIniziale();
+        model.loadData();
         model.aggiornaTableVIew(mailTableView);
 
         gms = new GestioneMailServer(model);
         gms.attivaServer();
+
+
+        stage.setOnCloseRequest(event -> {
+            try {
+                  gms.chiudiServer();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 }

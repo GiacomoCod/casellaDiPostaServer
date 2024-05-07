@@ -113,6 +113,7 @@ public class GestioneMailServer {
                     }
                     clientSocket.close();
 
+
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -149,4 +150,7 @@ public class GestioneMailServer {
     }
 
 
+    public void chiudiServer() throws IOException {
+        serverSocket.close();
+    }
 }

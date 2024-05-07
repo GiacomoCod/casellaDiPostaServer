@@ -12,11 +12,13 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("tableViewServer.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
         CasellaServerController casellaController = fxmlLoader.getController();
 
         DataModel model = new DataModel();
-        casellaController.initModel(model);
-        //casellaController.init();
+
+        casellaController.initModel(model, stage);
+
         stage.setScene(scene);
         stage.show();
     }
