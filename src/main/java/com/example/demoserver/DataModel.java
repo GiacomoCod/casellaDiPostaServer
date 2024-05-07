@@ -79,8 +79,8 @@ public class DataModel {
         }
 
          */
-        //return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari)&&(mail1.getId()>ultimoId))));
-        return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari))));
+        return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari)&&(mail1.getId()>ultimoId))));
+        //return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari))));
 
     }
 

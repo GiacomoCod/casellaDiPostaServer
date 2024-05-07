@@ -22,7 +22,7 @@ public class GestioneMailServer {
         this.modello = model;
     }
 
-    public void apriMailSelezionata(DataModel model, TableView<Mail> tv, int controllo) throws IOException {
+    public void apriMailSelezionata(DataModel model, TableView<Mail> tv) throws IOException {
         //Mail selectedItem = recordTableView.getSelectionModel().getSelectedItem();
         //Mail selectedItem = mailTableView.getSelectionModel().getSelectedItem();
         model.setCurrentMail(tv.getSelectionModel().getSelectedItem());
@@ -37,11 +37,6 @@ public class GestioneMailServer {
             vmcs.initModel(model);
             vmcs.setStage(stage);
             vmcs.setMail(tv);
-            if (selectedItem.getMittente().equals("giacomo.codagnone@gmail.com")) {
-                controllo = 0;
-            }
-            //vmcs.setControllo(controllo);
-
             vmcs.mostraOggetto();
             vmcs.mostraTesto();
             vmcs.mostraMittente();
