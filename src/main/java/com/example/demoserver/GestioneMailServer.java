@@ -18,8 +18,11 @@ public class GestioneMailServer {
 
     private final DataModel modello;
 
-    public GestioneMailServer(DataModel model) {
+    private final CasellaServerController csc;
+
+    public GestioneMailServer(DataModel model, CasellaServerController csc) {
         this.modello = model;
+        this.csc = csc;
     }
 
     public void apriMailSelezionata(DataModel model, TableView<Mail> tv) throws IOException {
@@ -69,6 +72,7 @@ public class GestioneMailServer {
             public void run () {
                 try {
                     System.out.println("Leggo il json dal client");
+                    csc.setTextAreaPerLog("DEBUG","Leggo il json dal client");
                     reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     String line;
                     line = reader.readLine();
@@ -86,10 +90,12 @@ public class GestioneMailServer {
                         modello.caricaMailDaStringa(jsonarray);
 
                         System.out.println("JSONArray ricevuto dal client: ");
+                        csc.setTextAreaPerLog("DEBUG","JSON ricevuto dal client: "+jsonarray);
                         System.out.println(jsonarray);
 
                         // Invia una risposta al client
                         System.out.println("Invio una risposta al client");
+                        csc.setTextAreaPerLog("DEBUG","Invio una risposta al client");
 
                         JSONArray jsonResponse = new JSONArray(modello.getEmailList().filtered((mail1 -> mail1.getMittente().equals(mit)&&(mail1.getId()>ultimoId))));
 
@@ -99,11 +105,15 @@ public class GestioneMailServer {
 
 
                         System.out.println("Chiudo la connessione");
+                        csc.setTextAreaPerLog("DEBUG","Chiudo la connessione");
                     }
                     else {
 
                         System.out.println(comando);
+                        csc.setTextAreaPerLog("DEBUG",comando);
+
                         System.out.println("rimando indietro la lsta di mail al client");
+                        csc.setTextAreaPerLog("DEBUG","rimando indietro la lsta di mail al client");
 
                         JSONArray jsonArray = modello.componiJsonArrayDaInviare(mit, ultimoId);
 
@@ -116,6 +126,7 @@ public class GestioneMailServer {
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
+                    csc.setTextAreaPerLog("ERRORE","Errore nell'esecuzione del thread di gestione del client: "+e.getMessage());
                 }
             }
 
@@ -127,11 +138,15 @@ public class GestioneMailServer {
                     while(isRunning) {
                         Socket clientSocket = serverSocket.accept();
                         System.out.println("Connessione accettata da: " + clientSocket);
+                        csc.setTextAreaPerLog("DEBUG","Connessione accettata da: " + clientSocket);
+
                         Thread clientThread = new Thread(new ClientHandler(clientSocket));
                         clientThread.start();
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
+                    csc.setTextAreaPerLog("ERRORE","Errore nell'esecuzione del thread di connessione: "+e.getMessage());
+
                 }
             }
         }
@@ -139,12 +154,13 @@ public class GestioneMailServer {
         try {
             serverSocket = new ServerSocket(modello.getServer_port());
             System.out.println("Server connesso e in ascolto sulla porta 12345...");
-
+            csc.setTextAreaPerLog("DEBUG","Server connesso e in ascolto sulla porta 12345...");
             Thread connectionThread = new Thread(new ConnectionHandler());
             connectionThread.start();
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            csc.setTextAreaPerLog("ERRORE","Errore nella creazione del server socket: "+e.getMessage());
         }
 
     }
@@ -152,5 +168,6 @@ public class GestioneMailServer {
 
     public void chiudiServer() throws IOException {
         serverSocket.close();
+        csc.setTextAreaPerLog("INFO","Connessione chiusa");
     }
 }

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane fx:controller="com.example.demoserver.CasellaServerController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demoserver.CasellaServerController">
    <children>
-      <TableView fx:id="mailTableView" layoutX="39.0" layoutY="63.0" prefHeight="296.0" prefWidth="509.0" onMouseClicked="#handleApriMailDoubleClick">
+      <TableView fx:id="mailTableView" layoutX="39.0" layoutY="63.0" onMouseClicked="#handleApriMailDoubleClick" prefHeight="239.0" prefWidth="509.0">
         <columns>
             <TableColumn minWidth="0.0" prefWidth="74.0" text="ID">
                 <cellValueFactory>
                     <PropertyValueFactory property="id" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="187.0" text="Mittente" >
+            <TableColumn prefWidth="187.0" text="Mittente">
                 <cellValueFactory>
                     <PropertyValueFactory property="mittente" />
                 </cellValueFactory>
@@ -33,5 +31,6 @@
             <Font name="Cambria" size="18.0" />
          </font>
       </Label>
+      <TextArea fx:id="textArea" editable="false" layoutX="39.0" layoutY="310.0" prefHeight="175.0" prefWidth="509.0" wrapText="true" />
    </children>
 </AnchorPane>

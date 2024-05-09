@@ -20,7 +20,11 @@ public class DataModel {
 
     private final ObjectProperty<Mail> currentMail = new SimpleObjectProperty<>(null);
 
-    public DataModel() throws FileNotFoundException {}
+    private final CasellaServerController csc;
+
+    public DataModel(CasellaServerController csc) throws FileNotFoundException {
+        this.csc = csc;
+    }
 
     public ObjectProperty<Mail> currentMailProperty() {
         return currentMail;
@@ -46,10 +50,6 @@ public class DataModel {
         this.emailList.add(mail);
     }
 
-    public void setUltimoId(int id) {
-
-    }
-
     public int getUltimoId() {
 
         if (emailList.isEmpty()) {
@@ -63,8 +63,6 @@ public class DataModel {
     public void aggiornaTableVIew(TableView<Mail> tableView) {
         tableView.setItems(emailList);
     }
-
-
 
 
     public JSONArray componiJsonArrayDaInviare(String destinatari, int ultimoId) {
@@ -98,14 +96,14 @@ public class DataModel {
             String destinatario = jsonObj.getString("destinatari");
             String oggetto = jsonObj.getString("oggetto");
             String testoMail = jsonObj.getString("testoMail");
-            LocalDateTime data = LocalDateTime.parse(jsonObj.getString("data"));
+            String data = jsonObj.getString("data");
             String uniqueCode = jsonObj.getString("uniqueCode");
 
             String stato = "ricevuta";
 
             jsonObj.put("id", id);
 
-            Mail mail = new Mail(id, mittente, destinatario, oggetto, testoMail, data.toString(), uniqueCode, stato);
+            Mail mail = new Mail(id, mittente, destinatario, oggetto, testoMail, data, uniqueCode, stato);
             this.addEmail(mail);
         }
 
@@ -130,6 +128,8 @@ public class DataModel {
         JSONArray jsonArray = new JSONArray(this.emailList);
         writer.write(jsonArray.toString());
         writer.close();
+        csc.setTextAreaPerLog("INFO", "File aggiornato con sucesso");
+
     }
 
     public void loadData() {
@@ -150,13 +150,16 @@ public class DataModel {
         String destinatario = jsonObj.getString("destinatari");
         String oggetto = jsonObj.getString("oggetto");
         String testoMail = jsonObj.getString("testoMail");
-        LocalDateTime data = LocalDateTime.parse(jsonObj.getString("data"));
+        String data = jsonObj.getString("data");
         String uniqueCode = jsonObj.getString("uniqueCode");
         String stato = jsonObj.getString("stato");
 
-        Mail mail = new Mail(id, mittente, destinatario, oggetto, testoMail, data.toString(), uniqueCode, stato);
+        Mail mail = new Mail(id, mittente, destinatario, oggetto, testoMail, data, uniqueCode, stato);
 
         this.addEmail(mail);
+
+        csc.setTextAreaPerLog("INFO","Mail aggiunta con successo alla lista delle email del server");
+
     }
 
 
@@ -171,6 +174,8 @@ public class DataModel {
         JSONObject jobj = new JSONObject(content);
 
         server_port = jobj.getInt("server_port");
+
+        csc.setTextAreaPerLog("INFO","Letta configurazione iniziale con successo con server port: "+server_port);
     }
 
     public int getServer_port() {

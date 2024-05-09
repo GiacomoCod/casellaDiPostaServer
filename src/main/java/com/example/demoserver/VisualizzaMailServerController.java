@@ -61,8 +61,7 @@ public class VisualizzaMailServerController {
     }
 
     public void mostraData() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        data.setText(model.getCurrentMail().getData().formatted(formatter));
+        data.setText(model.getCurrentMail().getData());
     }
     public void mostraCodice() {
         codice.setText(model.getCurrentMail().getUniqueCode());

@@ -1,12 +1,14 @@
 package com.example.demoserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CasellaServerController {
 
@@ -15,7 +17,10 @@ public class CasellaServerController {
     private GestioneMailServer gms;
 
     @FXML
-    public TableView<Mail> mailTableView;
+    private TextArea textArea;
+
+    @FXML
+    private TableView<Mail> mailTableView;
 
     @FXML
     public void handleApriMailDoubleClick(MouseEvent mouseEventVis) throws IOException {
@@ -25,6 +30,7 @@ public class CasellaServerController {
     }
 
     public void initModel(DataModel model, Stage stage) throws IOException {
+
         if (this.model != null) {
             throw new IllegalStateException("Model can only be initialized once");
         }
@@ -34,9 +40,8 @@ public class CasellaServerController {
         model.loadData();
         model.aggiornaTableVIew(mailTableView);
 
-        gms = new GestioneMailServer(model);
+        gms = new GestioneMailServer(model, this);
         gms.attivaServer();
-
 
         stage.setOnCloseRequest(event -> {
             try {
@@ -45,6 +50,13 @@ public class CasellaServerController {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void setTextAreaPerLog(String tipo, String log) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataeora = localDateTime.format(formatter);
+        textArea.appendText(dataeora + " - " + tipo + " - " + log+".\n");
     }
 
 }
