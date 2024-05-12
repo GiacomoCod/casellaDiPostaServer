@@ -36,9 +36,11 @@ public class CasellaServerController {
         }
         this.model = model ;
 
+        model.setCasella(this);
         model.configurazioneIniziale();
         model.loadData();
         model.aggiornaTableVIew(mailTableView);
+
 
         gms = new GestioneMailServer(model, this);
         gms.attivaServer();
@@ -53,10 +55,10 @@ public class CasellaServerController {
     }
 
     public void setTextAreaPerLog(String tipo, String log) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String dataeora = localDateTime.format(formatter);
-        textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n");
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//        String dataeora = localDateTime.format(formatter);
+//        textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n");
     }
 
 }

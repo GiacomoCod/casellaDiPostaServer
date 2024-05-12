@@ -20,11 +20,18 @@ public class DataModel {
 
     private final ObjectProperty<Mail> currentMail = new SimpleObjectProperty<>(null);
 
-    private final CasellaServerController csc;
+    private CasellaServerController csc;
 
-    public DataModel(CasellaServerController csc) throws FileNotFoundException {
-        this.csc = csc;
+    public DataModel() throws FileNotFoundException {
     }
+
+    public void setCasella(CasellaServerController casellaServerController) {
+        this.csc=casellaServerController;
+    }
+
+//    public DataModel(CasellaServerController csc) throws FileNotFoundException {
+//        this.csc = csc;
+//    }
 
     public ObjectProperty<Mail> currentMailProperty() {
         return currentMail;
@@ -181,4 +188,6 @@ public class DataModel {
     public int getServer_port() {
         return server_port;
     }
+
+
 }

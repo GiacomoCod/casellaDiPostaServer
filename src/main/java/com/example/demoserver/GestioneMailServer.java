@@ -75,8 +75,17 @@ public class GestioneMailServer {
 
                     String comando = obj.getString("comando");
                     String mit = obj.getString("mittente");
-                    JSONArray jsonarray = obj.getJSONArray("jsonArray");
                     int ultimoId = obj.getInt("ultimoId");
+                    JSONArray jsonarray;
+                    try {
+                        jsonarray = obj.getJSONArray("jsonArray");
+                    }
+                    catch (IOError e) {
+                        serverSocket.close();
+                        return;
+                    }
+
+
 
 
                     if(comando.equals("invia")) {
