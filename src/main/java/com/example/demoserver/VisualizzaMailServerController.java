@@ -1,14 +1,10 @@
 package com.example.demoserver;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 public class VisualizzaMailServerController {
 
@@ -27,7 +23,7 @@ public class VisualizzaMailServerController {
 
     private DataModel model;
 
-    private TableView<Mail> mailTableViewAgg;
+    private TableView<Mail> mailTableView;
 
     //private final GestioneMailServer gm = new GestioneMailServer(model);
 
@@ -43,11 +39,11 @@ public class VisualizzaMailServerController {
         stage.close(); // Chiudi la finestra corrente
     }
 
-
     @FXML
     public void back(javafx.event.ActionEvent actionEvent) {
         closeWindow();
     }
+
     public void mostraTesto() {
         TextArea.setText(model.getCurrentMail().getTestoMail());
     }
@@ -67,9 +63,9 @@ public class VisualizzaMailServerController {
         codice.setText(model.getCurrentMail().getUniqueCode());
     }
 
-    public void setMail(TableView<Mail> mailTableView) {
-        mailTableViewAgg = mailTableView;
-    }
+//    public void setMail(TableView<Mail> mailTableView) {
+//        this.mailTableView = mailTableView;
+//    }
 
     public void initModel(DataModel model) {
         if (this.model != null) {

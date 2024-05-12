@@ -56,7 +56,7 @@ public class CasellaServerController {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String dataeora = localDateTime.format(formatter);
-        textArea.appendText(dataeora + " - " + tipo + " - " + log+".\n");
+        textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n");
     }
 
 }

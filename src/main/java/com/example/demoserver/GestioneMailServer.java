@@ -4,12 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,8 +23,6 @@ public class GestioneMailServer {
     }
 
     public void apriMailSelezionata(DataModel model, TableView<Mail> tv) throws IOException {
-        //Mail selectedItem = recordTableView.getSelectionModel().getSelectedItem();
-        //Mail selectedItem = mailTableView.getSelectionModel().getSelectedItem();
         model.setCurrentMail(tv.getSelectionModel().getSelectedItem());
         Mail selectedItem = model.getCurrentMail();
         if (selectedItem != null) {
@@ -39,7 +34,6 @@ public class GestioneMailServer {
 
             vmcs.initModel(model);
             vmcs.setStage(stage);
-            vmcs.setMail(tv);
             vmcs.mostraOggetto();
             vmcs.mostraTesto();
             vmcs.mostraMittente();
@@ -90,7 +84,7 @@ public class GestioneMailServer {
                         modello.caricaMailDaStringa(jsonarray);
 
                         System.out.println("JSONArray ricevuto dal client: ");
-                        csc.setTextAreaPerLog("DEBUG","JSON ricevuto dal client: "+jsonarray);
+                        csc.setTextAreaPerLog("DEBUG","JSON ricevuto dal client");
                         System.out.println(jsonarray);
 
                         // Invia una risposta al client
@@ -101,11 +95,11 @@ public class GestioneMailServer {
 
                         OutputStream outputStream = clientSocket.getOutputStream();
                         PrintWriter writer = new PrintWriter(outputStream, true);
-                        writer.println(jsonResponse);
-
 
                         System.out.println("Chiudo la connessione");
                         csc.setTextAreaPerLog("DEBUG","Chiudo la connessione");
+
+                        writer.println(jsonResponse);
                     }
                     else {
 
@@ -121,16 +115,20 @@ public class GestioneMailServer {
                         PrintWriter writer = new PrintWriter(outputStream, true);
                         writer.println(jsonArray);
                     }
+                    System.out.println("prima");
                     clientSocket.close();
-
+                    System.out.println("dopo");
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                     csc.setTextAreaPerLog("ERRORE","Errore nell'esecuzione del thread di gestione del client: "+e.getMessage());
                 }
+
+
             }
 
         }
+
         class ConnectionHandler implements Runnable {
             @Override
             public void run() {
@@ -153,8 +151,8 @@ public class GestioneMailServer {
 
         try {
             serverSocket = new ServerSocket(modello.getServer_port());
-            System.out.println("Server connesso e in ascolto sulla porta 12345...");
-            csc.setTextAreaPerLog("DEBUG","Server connesso e in ascolto sulla porta 12345...");
+            System.out.println("Server connesso e in ascolto sulla porta "+modello.getServer_port()+"...");
+            csc.setTextAreaPerLog("DEBUG","Server connesso e in ascolto sulla porta "+modello.getServer_port()+"...");
             Thread connectionThread = new Thread(new ConnectionHandler());
             connectionThread.start();
 
@@ -168,6 +166,5 @@ public class GestioneMailServer {
 
     public void chiudiServer() throws IOException {
         serverSocket.close();
-        csc.setTextAreaPerLog("INFO","Connessione chiusa");
     }
 }
