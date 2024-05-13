@@ -1,4 +1,5 @@
 package com.example.demoserver;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -55,10 +56,11 @@ public class CasellaServerController {
     }
 
     public void setTextAreaPerLog(String tipo, String log) {
-//        LocalDateTime localDateTime = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//        String dataeora = localDateTime.format(formatter);
-//        textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataeora = localDateTime.format(formatter);
+
+        Platform.runLater(() -> textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n"));
     }
 
 }
