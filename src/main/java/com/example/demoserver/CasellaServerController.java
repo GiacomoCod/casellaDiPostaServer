@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,7 +58,6 @@ public class CasellaServerController {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String dataeora = localDateTime.format(formatter);
-
         Platform.runLater(() -> textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n"));
     }
 

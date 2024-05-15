@@ -5,32 +5,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demoserver.CasellaServerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demoserver.CasellaServerController">
    <children>
-      <TableView fx:id="mailTableView" layoutX="39.0" layoutY="63.0" onMouseClicked="#handleApriMailDoubleClick" prefHeight="239.0" prefWidth="509.0">
+      <TableView fx:id="mailTableView" layoutX="39.0" layoutY="63.0" onMouseClicked="#handleApriMailDoubleClick" prefHeight="239.0" prefWidth="601.0">
         <columns>
-            <TableColumn minWidth="0.0" prefWidth="74.0" text="ID">
+            <TableColumn minWidth="0.0" prefWidth="50.0" text="ID">
                 <cellValueFactory>
                     <PropertyValueFactory property="id" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="187.0" text="Mittente">
+            <TableColumn prefWidth="211.0" text="Mittente">
                 <cellValueFactory>
                     <PropertyValueFactory property="mittente" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="247.0" text="Destinatari/o">
+            <TableColumn minWidth="0.0" prefWidth="339.0" text="Destinatari/o">
                 <cellValueFactory>
                     <PropertyValueFactory property="destinatari" />
                 </cellValueFactory>
             </TableColumn>
         </columns>
       </TableView>
-      <Label layoutX="39.0" layoutY="21.0" prefHeight="27.0" prefWidth="148.0" text="Lista mail server">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="148.0" text="Lista mail server">
          <font>
             <Font name="Cambria" size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="textArea" editable="false" layoutX="39.0" layoutY="310.0" prefHeight="175.0" prefWidth="509.0" wrapText="true" />
+      <TextArea fx:id="textArea" editable="false" layoutX="39.0" layoutY="310.0" prefHeight="175.0" prefWidth="601.0" wrapText="true" />
    </children>
 </AnchorPane>

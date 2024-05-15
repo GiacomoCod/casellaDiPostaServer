@@ -22,16 +22,13 @@ public class DataModel {
 
     private CasellaServerController csc;
 
-    public DataModel() throws FileNotFoundException {
-    }
+    private int server_port;
+
+    public DataModel() throws FileNotFoundException {}
 
     public void setCasella(CasellaServerController casellaServerController) {
         this.csc=casellaServerController;
     }
-
-//    public DataModel(CasellaServerController csc) throws FileNotFoundException {
-//        this.csc = csc;
-//    }
 
     public ObjectProperty<Mail> currentMailProperty() {
         return currentMail;
@@ -73,28 +70,11 @@ public class DataModel {
 
 
     public JSONArray componiJsonArrayDaInviare(String destinatari, int ultimoId) {
-        /*
-        for(Mail mail : getEmailList()) {
-            if(mail.getDestinatario().contains(destinatario)) {
-                if(mail.getId()>ultimoId) {
-                    jsonArray.put(mail.getJobj());
-                    mail.setStato("ricevuta");
-                }
-            }
-        }
-
-         */
         return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari)&&(mail1.getId()>ultimoId))));
-        //return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari))));
 
     }
 
     public void caricaMailDaStringa(JSONArray jsonArray) throws IOException {
-
-        //JSONArray jsonArray = new JSONArray(JsonString);
-        // Itera su ciascun oggetto JSON nell'array
-        // Leggi i singoli campi dall'oggetto JSON
-
         for (Object obj : jsonArray) {
             JSONObject jsonObj = (JSONObject) obj;
             // Leggi i singoli campi dall'oggetto JSON
@@ -118,19 +98,14 @@ public class DataModel {
 
     }
 
-    String jarPath = DataModel.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    File jarFile = new File(jarPath);
-    File fileDati = new File(jarFile.getParent(), "dati.json");
-
-    //public File file = new File("src/main/java/com/example/demoServer/dati.json");
-
-    public FileReader fileReader = new FileReader(fileDati);
-    JSONTokener tokener = new JSONTokener(fileReader);
-    JSONArray jsonArray = new JSONArray(tokener);
-
+    private final String jarPath = DataModel.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    private final File jarFile = new File(jarPath);
+    private final File fileDati = new File(jarFile.getParent(), "dati.json");
+    private final  FileReader fileReader = new FileReader(fileDati);
+    private final JSONTokener tokener = new JSONTokener(fileReader);
+    private final JSONArray jsonArray = new JSONArray(tokener);
 
     public void aggiornaFile() throws IOException {
-        // Scrivi la struttura dati Java aggiornata nel file JSON
         FileWriter writer = new FileWriter(fileDati);
         JSONArray jsonArray = new JSONArray(this.emailList);
         writer.write(jsonArray.toString());
@@ -143,9 +118,7 @@ public class DataModel {
 
         for (Object obj : jsonArray) {
             JSONObject jsonObj = (JSONObject) obj;
-
             aggiungiMailDaJson(jsonObj);
-
         }
         emailList.sort(Comparator.comparing(Mail::getId));
     }
@@ -170,18 +143,12 @@ public class DataModel {
     }
 
 
-    private int server_port;
 
     public void configurazioneIniziale() throws IOException {
-
         String pathConf = jarFile.getParent()+"\\configurazione.json";
-
         String content = new String(Files.readAllBytes(Path.of(pathConf)));
-
         JSONObject jobj = new JSONObject(content);
-
         server_port = jobj.getInt("server_port");
-
         csc.setTextAreaPerLog("INFO","Letta configurazione iniziale con successo con server port: "+server_port);
     }
 
