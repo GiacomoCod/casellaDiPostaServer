@@ -7,11 +7,9 @@ import javafx.scene.control.TableView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 
 public class DataModel {
@@ -55,7 +53,6 @@ public class DataModel {
     }
 
     public int getUltimoId() {
-
         if (emailList.isEmpty()) {
             return 0;
         }
@@ -68,15 +65,15 @@ public class DataModel {
         tableView.setItems(emailList);
     }
 
-
     public JSONArray componiJsonArrayDaInviare(String destinatari, int ultimoId) {
-        return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari)&&(mail1.getId()>ultimoId))));
+        return new JSONArray(emailList.filtered((mail1 -> mail1.getDestinatari().contains(destinatari)&&(mail1.getId()>ultimoId)&&(mail1.getStato().equals("ricevuta")))));
 
     }
 
-    public void caricaMailDaStringa(JSONArray jsonArray) throws IOException {
+    public synchronized void aggiungiMailDaJsonArray(JSONArray jsonArray) throws IOException {
         for (Object obj : jsonArray) {
             JSONObject jsonObj = (JSONObject) obj;
+
             // Leggi i singoli campi dall'oggetto JSON
             Integer id = getUltimoId()+1;
             String mittente = jsonObj.getString("mittente");
@@ -85,17 +82,15 @@ public class DataModel {
             String testoMail = jsonObj.getString("testoMail");
             String data = jsonObj.getString("data");
             String uniqueCode = jsonObj.getString("uniqueCode");
-
             String stato = "ricevuta";
 
-            jsonObj.put("id", id);
+            //jsonObj.put("id", id);
 
             Mail mail = new Mail(id, mittente, destinatario, oggetto, testoMail, data, uniqueCode, stato);
             this.addEmail(mail);
         }
 
         this.aggiornaFile();
-
     }
 
     private final String jarPath = DataModel.class.getProtectionDomain().getCodeSource().getLocation().getPath();

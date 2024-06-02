@@ -1,29 +1,34 @@
 [
-  {"id":1,
-  "mittente":"carol@example.com",
-  "destinatario":"giacomo.codagnone@gmail.com",
-  "oggetto":"Riunione",
-  "testoMail":"Ciao Dave, ti scrivo per informarti riguardo alla riunione di domani mattina alle 10:00.",
-  "data":"2024-04-29T15:30:45.123456789",
-  "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
-  "stato":""
- },
-{ "id": 2,
-  "mittente":"giacomo.codagnone@gmail.com",
-  "destinatario":"giacomo.codagnone@gmail.com",
-  "oggetto":"Invito",
-  "testoMail":"Ciao ti scrivo per invitarti al mio compleanno",
-  "data":"2024-04-29T15:30:45.123456789",
-  "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
-  "stato":""
+  {
+    "id": 1,
+    "mittente": "giacomo.codagnone@gmail.com",
+    "destinatari": "simone.rossi@gmail.com",
+    "oggetto": "Come stai?",
+    "testoMail": "Ciao Simone, come stai? Spero che questa email ti trovi bene.",
+    "data": "10/05/2024 17:30:51",
+    "uniqueCode": "32c0c70f-a49a-43e2-b12f-550cfe4e5de6",
+    "stato": "ricevuta"
+
   },
-  {"id":3,
-    "mittente":"carol@example.com",
-    "destinatario":"frank@example.com",
-    "oggetto":"Riunione",
-    "testoMail":"Ciao Dave, ti scrivo per informarti riguardo alla riunione di domani mattina alle 10:00.",
-    "data":"2024-04-29T15:30:45.123456789",
-    "uniqueCode":"3d913810-2e45-49c2-b426-d4c4fa21be40",
-    "stato":""
+  {
+    "id": 2,
+    "mittente": "simone.rossi@gmail.com",
+    "destinatari": "giovanni.verdi@gmail.com",
+    "oggetto": "Riunione",
+    "testoMail": "Ciao giovanni, ti scrivo per informarti riguardo alla riunione di domani mattina alle 10:00.",
+    "data": "03/05/2024 10:39:51",
+    "uniqueCode": "3d913810-2e45-49c2-b426-d4c4fa21be40",
+    "stato": "ricevuta"
+
+  },
+  {
+    "id": 3,
+    "mittente": "giovanni.verdi@gmail.com",
+    "destinatari": "giacomo.codagnone@gmail.com;simone.rossi@gmail.com",
+    "oggetto": "Documenti",
+    "testoMail": "Ciao Giacomo, ti invio il documento richiesto. Fammi sapere se hai bisogno di ulteriori informazioni.",
+    "data": "04/05/2024 18:40:00",
+    "uniqueCode": "cfa5d5ff-beb4-4c28-adb4-cdbc038dfc01",
+    "stato": "ricevuta"
   }
 ]

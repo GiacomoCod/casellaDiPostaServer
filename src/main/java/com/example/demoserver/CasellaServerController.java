@@ -1,6 +1,8 @@
 package com.example.demoserver;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
@@ -15,6 +17,9 @@ public class CasellaServerController {
     private DataModel model;
 
     private GestioneMailServer gms;
+
+    @FXML
+    public Label serverPort;
 
     @FXML
     private TextArea textArea;
@@ -32,7 +37,7 @@ public class CasellaServerController {
     public void initModel(DataModel model, Stage stage) throws IOException {
 
         if (this.model != null) {
-            throw new IllegalStateException("Model can only be initialized once");
+            throw new IllegalStateException("Il modello può essere inizializzato una sola volta");
         }
         this.model = model ;
 
@@ -40,6 +45,7 @@ public class CasellaServerController {
         model.configurazioneIniziale();
         model.loadData();
         model.aggiornaTableVIew(mailTableView);
+        setServerPortLabel();
 
 
         gms = new GestioneMailServer(model, this);
@@ -47,7 +53,7 @@ public class CasellaServerController {
 
         stage.setOnCloseRequest(event -> {
             try {
-                  gms.chiudiServer();
+                  gms.disattivaServer();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -61,6 +67,17 @@ public class CasellaServerController {
         Platform.runLater(() -> textArea.appendText(dataeora + " - " + tipo + " - " + log+"\n"));
     }
 
+    public void setServerPortLabel() {
+        serverPort.setText("Server port: "+model.getServer_port());
+    }
+
+    public void handleButtonConnetti(ActionEvent actionEvent) {
+        gms.attivaServer();
+    }
+
+    public void handleButtonDisconnetti(ActionEvent actionEvent) throws IOException {
+        gms.disattivaServer();
+    }
 }
 
 

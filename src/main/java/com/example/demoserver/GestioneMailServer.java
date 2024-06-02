@@ -33,12 +33,10 @@ public class GestioneMailServer {
             VisualizzaMailServerController vmcs = loaderVisualizza.getController();
 
             vmcs.initModel(model);
-            vmcs.setStage(stage);
             vmcs.mostraOggetto();
             vmcs.mostraTesto();
             vmcs.mostraMittente();
             vmcs.mostraData();
-            vmcs.mostraCodice();
 
 
             stage.setScene(new Scene(root));
@@ -65,9 +63,11 @@ public class GestioneMailServer {
             @Override
             public void run () {
                 try {
-                    System.out.println("Leggo il json dal client");
-                    csc.setTextAreaPerLog("DEBUG","Leggo il json dal client");
+                    System.out.println("Leggo il file json dal client");
+                    csc.setTextAreaPerLog("DEBUG","Leggo il file json dal client");
+
                     reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
                     String line;
                     line = reader.readLine();
 
@@ -85,12 +85,9 @@ public class GestioneMailServer {
                         return;
                     }
 
-
-
-
                     if(comando.equals("invia")) {
 
-                        modello.caricaMailDaStringa(jsonarray);
+                        modello.aggiungiMailDaJsonArray(jsonarray);
 
                         System.out.println("JSONArray ricevuto dal client: ");
                         csc.setTextAreaPerLog("DEBUG","JSON ricevuto dal client");
@@ -110,13 +107,13 @@ public class GestioneMailServer {
 
                         writer.println(jsonResponse);
                     }
-                    else {
+                    else { //comando.equals("ricevi")
 
                         System.out.println(comando);
                         csc.setTextAreaPerLog("DEBUG",comando);
 
                         System.out.println("rimando indietro la lsta di mail al client");
-                        csc.setTextAreaPerLog("DEBUG","rimando indietro la lsta di mail al client");
+                        csc.setTextAreaPerLog("DEBUG","rimando indietro la lista di mail al client");
 
                         JSONArray jsonArray = modello.componiJsonArrayDaInviare(mit, ultimoId);
 
@@ -124,9 +121,8 @@ public class GestioneMailServer {
                         PrintWriter writer = new PrintWriter(outputStream, true);
                         writer.println(jsonArray);
                     }
-                    System.out.println("prima");
+
                     clientSocket.close();
-                    System.out.println("dopo");
 
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -152,12 +148,12 @@ public class GestioneMailServer {
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
-                    csc.setTextAreaPerLog("ERRORE","Errore nell'esecuzione del thread di connessione: "+e.getMessage());
+                    csc.setTextAreaPerLog("INFO","Server disconnesso: "+e.getMessage());
 
                 }
             }
         }
-
+        //partenza
         try {
             serverSocket = new ServerSocket(modello.getServer_port());
             System.out.println("Server connesso e in ascolto sulla porta "+modello.getServer_port()+"...");
@@ -167,13 +163,12 @@ public class GestioneMailServer {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            csc.setTextAreaPerLog("ERRORE","Errore nella creazione del server socket: "+e.getMessage());
+            csc.setTextAreaPerLog("ERRORE","Errore nell'esecuzione del thread di gestione del client: "+e.getMessage());
         }
 
     }
 
-
-    public void chiudiServer() throws IOException {
+    public void disattivaServer() throws IOException {
         serverSocket.close();
     }
 }

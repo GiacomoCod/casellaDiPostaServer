@@ -3,6 +3,7 @@ package com.example.demoserver;
 import javafx.beans.property.*;
 
 public class Mail {
+
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty mittente = new SimpleStringProperty();
     private final StringProperty destinatari = new SimpleStringProperty();
@@ -11,7 +12,6 @@ public class Mail {
     private final StringProperty data = new SimpleStringProperty();
     private final StringProperty uniqueCode = new SimpleStringProperty();
     private final StringProperty stato = new SimpleStringProperty();
-
 
     public Mail(Integer id, String mittente, String destinatari, String oggetto, String testoMail, String data, String uniqueCode, String stato) {
         this.id.set(id);
@@ -23,23 +23,6 @@ public class Mail {
         this.uniqueCode.set(uniqueCode);
         this.stato.set(stato);
     }
-
-    public IntegerProperty idProperty() {return id;}
-    public StringProperty mittenteProperty() {
-        return mittente;
-    }
-    public StringProperty destinatariProperty() {
-        return destinatari;
-    }
-    public StringProperty oggettoProperty() {
-        return oggetto;
-    }
-    public StringProperty testoMailProperty() {
-        return testoMail;
-    }
-    public StringProperty dataProperty() {return data; }
-    public StringProperty uniqueCodeProperty() {return uniqueCode;}
-    public StringProperty statoProperty() {return stato;}
 
     public int getId() {
         return id.get();
